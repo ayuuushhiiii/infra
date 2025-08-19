@@ -1,40 +1,48 @@
-name: Terraform CI/CD
+name: Terraform
 
 on:
   push:
     branches:
       - main
-  pull_request:
 
 jobs:
   terraform:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout repository
-      - name: Checkout
+      - name: Checkout Infra
         uses: actions/checkout@v4
+        with:
+          path: infra
 
-      # 2. Setup Terraform
-      - name: Setup Terraform
+      - name: Checkout VPC module
+        uses: actions/checkout@v4
+        with:
+          repository: ayuuushhiiii/VPC_Module
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          path: VPC_Module
+
+      - name: Checkout Subnet module
+        uses: actions/checkout@v4
+        with:
+          repository: ayuuushhiiii/subnet_module
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          path: subnet_module
+
+      - name: Checkout EC2 module
+        uses: actions/checkout@v4
+        with:
+          repository: ayuuushhiiii/EC2
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          path: EC2
+
+      - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
 
-      # 3. Initialize Terraform
       - name: Terraform Init
+        working-directory: infra
         run: terraform init
-        working-directory: ./checkout
 
-      # 4. Terraform Format Check
-      - name: Terraform Format
-        run: terraform fmt -check
-        working-directory: ./checkout
-
-      # 5. Terraform Validate
-      - name: Terraform Validate
-        run: terraform validate
-        working-directory: ./checkout
-
-      # 6. Terraform Plan
       - name: Terraform Plan
-        run: terraform plan -input=false
-        working-directory: ./checkout
+        working-directory: infra
+        run: terraform plan
