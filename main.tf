@@ -4,8 +4,8 @@ provider "aws" {
 
 module "vpc_creation" {
   source = "./VPC_Module"
-  vpc_block = var.vpc_range
-  vpc_git = var.vpc_name
+  vpc_range = var.vpc_range
+  vpc_name = var.vpc_name
   region = var.aws_region
   
 }
