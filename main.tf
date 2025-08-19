@@ -23,7 +23,7 @@ module "subnet2_creation" {
 }
 module "ec2_instance" {
     source = "./EC2"
-   instance_type_value = var.instance_type_value
+   instance_type_value = var.instance_type
    ami_id = var.ami_id
    instance_name = var.instance_name
    subnet_id     = module.subnet1_creation.subnet_id
