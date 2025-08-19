@@ -43,6 +43,16 @@ variable "aws_region" {
 #   default = ""
 #   type = string
 # }
+variable "Subnet_1_Name" {
+  description = "subnet 1 name"
+  default = ""
+  type = string
+}
+variable "Subnet_2_Name" {
+  description = "subnet 2 name"
+  default = ""
+  type = string
+}
 
 
 

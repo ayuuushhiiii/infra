@@ -6,5 +6,7 @@ instance_type = "t3.micro"
 instance_name = "server_3"
 aws_region = "us-east-1"
 #vpc_name = "vpc_git"
+Subnet_1_Name = "subnet1"
+Subnet_2_Name = "Subnet2"
 
 
