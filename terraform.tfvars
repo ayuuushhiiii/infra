@@ -5,6 +5,6 @@ cidr_block_2 = "192.168.0.16/28"
 instance_type = "t3.micro"
 instance_name = "server_3"
 aws_region = "us-east-1"
-vpc_name = "vpc_git"
+#vpc_name = "vpc_git"
 
 

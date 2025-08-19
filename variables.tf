@@ -38,10 +38,10 @@ variable "aws_region" {
   default = ""
   type = string
 }
-variable "vpc_name"{
-  description = "name of vpc"
-  default = ""
-  type = string
-}
+# variable "vpc_name"{
+#   description = "name of vpc"
+#   default = ""
+#   type = string
+# }
 
 
