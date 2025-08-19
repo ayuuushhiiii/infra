@@ -6,7 +6,7 @@ module "vpc_creation" {
   source = "./VPC_Module"
   vpc_range = var.vpc_range
   vpc_name = var.vpc_name
-  region = var.aws_region
+  aws_region = var.aws_region
   
 }
 module "subnet1_creation" {
