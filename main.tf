@@ -26,6 +26,7 @@ module "ec2_instance" {
    instance_type_value = var.instance_type_value
    ami_id = var.ami_id
    instance_name = var.instance_name
+   subnet_id     = var.subnet_id
 }
 
 
