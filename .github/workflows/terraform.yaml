@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Infra
         uses: actions/checkout@v4
         with:
-          path: infra
+          path: checkout
 
       - name: Checkout VPC module
         uses: actions/checkout@v4
@@ -39,10 +39,13 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Debug folder structure
+        run: ls -R
+
       - name: Terraform Init
-        working-directory: infra
+        working-directory: checkout
         run: terraform init
 
       - name: Terraform Plan
-        working-directory: infra
+        working-directory: checkout
         run: terraform plan
