@@ -3,7 +3,7 @@ variable "ami_id" {
   default = ""
   type = string
 }
-variable "range" {
+variable "vpc_range" {
   description = "range of CIDR of Vnet"
   default = ""
   type = string
@@ -43,3 +43,5 @@ variable "vpc_name"{
   default = ""
   type = string
 }
+variable "cidr_block" {}
+variable "vpc_name" {}
