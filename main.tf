@@ -5,7 +5,7 @@ provider "aws" {
 module "vpc_creation" {
   source = "./VPC_Module"
   vpc_range = var.vpc_range
-  vpc_name = var.vpc_name
+  Name = var.vpc_name
   aws_region = var.aws_region
   
 }
