@@ -1,61 +1,40 @@
-name: Terraform Pipeline
+name: Terraform CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
 
 jobs:
   terraform:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout infra repo (this repo)
-      - name: Checkout Infra
+      # 1. Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      # Checkout VPC module repo
-      - name: Checkout VPC module
-        uses: actions/checkout@v4
-        with:
-          repository: ayuuushhiiii/VPC_Module
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          path: VPC_Module
-
-      # Checkout Subnet module repo
-      - name: Checkout Subnet module
-        uses: actions/checkout@v4
-        with:
-          repository: ayuuushhiiii/subnet_module
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          path: subnet_module
-
-      # Checkout EC2 module repo
-      - name: Checkout EC2 module
-        uses: actions/checkout@v4
-        with:
-          repository: ayuuushhiiii/EC2
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          path: EC2
-
-      # Setup Terraform
+      # 2. Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      # Terraform Init
+      # 3. Initialize Terraform
       - name: Terraform Init
         run: terraform init
+        working-directory: ./checkout
 
-      # Terraform Validate
+      # 4. Terraform Format Check
+      - name: Terraform Format
+        run: terraform fmt -check
+        working-directory: ./checkout
+
+      # 5. Terraform Validate
       - name: Terraform Validate
         run: terraform validate
+        working-directory: ./checkout
 
-      # Terraform Plan
+      # 6. Terraform Plan
       - name: Terraform Plan
         run: terraform plan -input=false
-
-      # Terraform Apply (only on push to main, not PRs)
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        run: terraform apply -input=false -auto-approve
+        working-directory: ./checkout
