@@ -10,11 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout your infra repo (this repo)
       - name: Checkout Infra
         uses: actions/checkout@v4
         with:
-          path: checkout
+          path: checkout   # ✅ put your repo contents in /checkout
 
+      # Checkout VPC module repo
       - name: Checkout VPC module
         uses: actions/checkout@v4
         with:
@@ -22,6 +24,7 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           path: VPC_Module
 
+      # Checkout Subnet module repo
       - name: Checkout Subnet module
         uses: actions/checkout@v4
         with:
@@ -29,6 +32,7 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           path: subnet_module
 
+      # Checkout EC2 module repo
       - name: Checkout EC2 module
         uses: actions/checkout@v4
         with:
@@ -36,16 +40,22 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           path: EC2
 
+      # Debug to check if .tf files are found
+      - name: Debug folder structure
+        run: |
+          pwd
+          ls -R
+
+      # Setup Terraform
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Debug folder structure
-        run: ls -R
-
+      # Terraform Init
       - name: Terraform Init
         working-directory: checkout
         run: terraform init
 
+      # Terraform Plan
       - name: Terraform Plan
         working-directory: checkout
         run: terraform plan
