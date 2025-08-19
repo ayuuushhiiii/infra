@@ -43,5 +43,5 @@ variable "vpc_name"{
   default = ""
   type = string
 }
-variable "cidr_block" {}
+
 
